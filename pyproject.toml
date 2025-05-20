@@ -1,11 +1,36 @@
 [project]
-name = "astral-uv-python-package-template"
-version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
+name = "boltwood"
+version = "0.0.0"
+description = "A hypermodern, type-safe, zero-dependency python library for the Boltwood II & III cloud sensors."
 authors = [{ name = "michealroberts", email = "michael@observerly.com" }]
+maintainers = [{ name = "Michael Roberts", email = "michael@observerly.com" }]
+keywords = [
+    "boltwood",
+    "boltwood-ii",
+    "boltwood-iii",
+    "boltwood-sensor",
+    "cloud-sensor",
+    "weather-station",
+    "weather",
+    "weather-sensor",
+    "weather-monitoring",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.13",
+]
+readme = "README.md"
+license = { file = "LICENSE" }
 requires-python = ">=3.13"
 dependencies = []
+
+[project.urls]
+Source = "https://github.com/michealroberts/boltwood"
+Issues = "https://github.com/michealroberts/boltwood/issues"
+PullRequests = "https://github.com/michealroberts/boltwood/pulls"
+Discussions = "https://github.com/michealroberts/boltwood/discussions"
 
 [build-system]
 requires = ["hatchling"]
@@ -13,7 +38,6 @@ build-backend = "hatchling.build"
 
 [dependency-groups]
 dev = [
-    "astropy>=7.0.1",
     "mypy>=1.15.0",
     "pre-commit>=4.1.0",
     "pytest>=8.3.4",
@@ -24,4 +48,4 @@ dev = [
 
 [tool.pytest.ini_options]
 pythonpath = [".", "src"]
-asyncio_default_fixture_loop_scope = ["session"]
+asyncio_default_fixture_loop_scope = "session"
