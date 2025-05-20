@@ -1,6 +1,6 @@
 # **************************************************************************************
 
-# @package        astral-uv-python-package-template
+# @package        boltwood
 # @license        MIT License Copyright (c) 2025 Michael J. Roberts
 
 # **************************************************************************************
