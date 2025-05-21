@@ -24,7 +24,7 @@ classifiers = [
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.13"
-dependencies = []
+dependencies = ["celerity>=0.31.0"]
 
 [project.urls]
 Source = "https://github.com/michealroberts/boltwood"

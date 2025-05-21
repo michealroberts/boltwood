@@ -10,6 +10,10 @@ from .base import (
     BaseDeviceParameters,
     BaseDeviceState,
 )
+from .base_conditions import (
+    BaseConditionsMonitorDeviceInterface,
+    BaseConditionsMonitorDeviceParameters,
+)
 
 # **************************************************************************************
 
@@ -27,6 +31,8 @@ __all__: list[str] = [
     "BaseDeviceInterface",
     "BaseDeviceParameters",
     "BaseDeviceState",
+    "BaseConditionsMonitorDeviceInterface",
+    "BaseConditionsMonitorDeviceParameters",
 ]
 
 # **************************************************************************************

@@ -6,6 +6,9 @@ requires-python = ">=3.13"
 name = "boltwood"
 version = "0.0.0"
 source = { editable = "." }
+dependencies = [
+    { name = "celerity" },
+]
 
 [package.dev-dependencies]
 dev = [
@@ -18,6 +21,7 @@ dev = [
 ]
 
 [package.metadata]
+requires-dist = [{ name = "celerity", specifier = ">=0.31.0" }]
 
 [package.metadata.requires-dev]
 dev = [
@@ -27,6 +31,15 @@ dev = [
     { name = "pytest-asyncio", specifier = ">=0.25.3" },
     { name = "pytest-cov", specifier = ">=6.0.0" },
     { name = "ruff", specifier = ">=0.9.7" },
+]
+
+[[package]]
+name = "celerity"
+version = "0.31.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/3a/ec/1d9f889ae5188ba5b1ebe7ecbb57504a57c34db7692400748e415b5d0bbc/celerity-0.31.0.tar.gz", hash = "sha256:04a618ac52d38b8747ee93912490ca44606bfa948c43efaae3ec2897293349ab", size = 23734, upload-time = "2025-05-03T14:36:59.882Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/93/40/03c629225a1f5264a2998d3b43f613ac39be6a745fbecbde9028e9461c2a/celerity-0.31.0-py3-none-any.whl", hash = "sha256:586db11460bd3cb679ad34df76e4ace47d133d2181eed7f46fef375347ea9210", size = 37143, upload-time = "2025-05-03T14:36:58.581Z" },
 ]
 
 [[package]]
