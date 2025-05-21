@@ -24,7 +24,10 @@ classifiers = [
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.13"
-dependencies = ["celerity>=0.31.0"]
+dependencies = [
+    "celerity>=0.31.0",
+    "pydantic>=2.11.4",
+]
 
 [project.urls]
 Source = "https://github.com/michealroberts/boltwood"
