@@ -42,9 +42,11 @@ class TestBase(unittest.TestCase):
 # **************************************************************************************
 
 
-class DummyDeviceInterface(BaseDeviceInterface):
+class DummyBaseDeviceInterface(BaseDeviceInterface):
     """
-    DummyDevice is a simple concrete implementation of BaseDeviceInterface used for testing.
+    DummyBaseDeviceInterface is a simple concrete implementation of BaseDeviceInterface
+    used for testing.
+
     It provides fixed return values for each of the abstract methods and properties.
     """
 
@@ -104,15 +106,15 @@ class DummyDeviceInterface(BaseDeviceInterface):
 # **************************************************************************************
 
 
-class TestDummyDevice(unittest.TestCase):
+class TestDummyBaseDeviceInterface(unittest.TestCase):
     def setUp(self) -> None:
-        # Create an instance of DummyDevice with some parameters.
+        # Create an instance of DummyBaseDeviceInterface with some parameters.
         params: BaseDeviceParameters = {
             "did": "ddid",
             "vid": "dvid",
             "pid": "dpid",
         }
-        self.device = DummyDeviceInterface(params)
+        self.device = DummyBaseDeviceInterface(params)
 
     def test_device_id_property(self) -> None:
         """Test that the device_id property exists and returns the expected value."""
