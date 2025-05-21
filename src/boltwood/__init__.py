@@ -14,6 +14,9 @@ from .base_conditions import (
     BaseConditionsMonitorDeviceInterface,
     BaseConditionsMonitorDeviceParameters,
 )
+from .status import (
+    BoltwoodIIIConditionsMonitorDeviceStatus,
+)
 
 # **************************************************************************************
 
@@ -33,6 +36,7 @@ __all__: list[str] = [
     "BaseDeviceState",
     "BaseConditionsMonitorDeviceInterface",
     "BaseConditionsMonitorDeviceParameters",
+    "BoltwoodIIIConditionsMonitorDeviceStatus",
 ]
 
 # **************************************************************************************
