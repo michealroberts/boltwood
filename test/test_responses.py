@@ -7,7 +7,10 @@
 
 import unittest
 
-from boltwood.responses import PATTERN_OBSERVING_CONDITIONS_ALL_RESPONSE
+from boltwood.responses import (
+    PATTERN_OBSERVING_CONDITIONS_ALL_RESPONSE,
+    PATTERN_SAFETY_MONITOR_ALL_RESPONSE,
+)
 
 # **************************************************************************************
 
@@ -94,6 +97,74 @@ class TestPatternObservingConditionsAllResponse(unittest.TestCase):
         # Too many fields (16 instead of 15) should fail to match:
         raw = "0 5 50 10.5 55.5 1013.2 0.1 100 5.0 15.2 2.3 20.0 180 4.5 3.2 99"
         m = PATTERN_OBSERVING_CONDITIONS_ALL_RESPONSE.match(raw)
+        self.assertIsNone(m, msg="Pattern should not match when there are extra tokens")
+
+
+# **************************************************************************************
+
+
+class TestPatternSafetyMonitorAllResponse(unittest.TestCase):
+    def test_full_boolean_safe(self):
+        raw = "0 1"
+        m = PATTERN_SAFETY_MONITOR_ALL_RESPONSE.match(raw)
+        self.assertIsNotNone(m, msg="Pattern did not match a fully numeric response")
+        gd = m.groupdict()
+
+        expected = {"status": "0", "is_safe": "1"}
+
+        for key, expected in expected.items():
+            self.assertEqual(
+                gd[key],
+                expected,
+                msg=f"Group '{key}' expected {expected} but got {gd[key]}",
+            )
+
+    def test_full_boolean_unsafe(self):
+        raw = "0 0"
+        m = PATTERN_SAFETY_MONITOR_ALL_RESPONSE.match(raw)
+        self.assertIsNotNone(m, msg="Pattern did not match a fully numeric response")
+        gd = m.groupdict()
+
+        expected = {"status": "0", "is_safe": "0"}
+
+        for key, expected in expected.items():
+            self.assertEqual(
+                gd[key],
+                expected,
+                msg=f"Group '{key}' expected {expected} but got {gd[key]}",
+            )
+
+    def test_status_client_error(self):
+        # Pattern should match but capture status '1' when device returns an error code:
+        raw = "1 0"
+        m = PATTERN_SAFETY_MONITOR_ALL_RESPONSE.match(raw)
+        self.assertIsNotNone(m, msg="Pattern did not match a response with status 1")
+        self.assertEqual(
+            m.group("status"),
+            "1",
+            msg=f"Expected status '1' but got '{m.group('status')}'",
+        )
+
+    def test_status_server_error(self):
+        # Pattern should match but capture status '2' when device returns an error code:
+        raw = "2 0"
+        m = PATTERN_SAFETY_MONITOR_ALL_RESPONSE.match(raw)
+        self.assertIsNotNone(m, msg="Pattern did not match a response with status 2")
+        self.assertEqual(
+            m.group("status"),
+            "2",
+            msg=f"Expected status '2' but got '{m.group('status')}'",
+        )
+
+    def test_invalid_format(self):
+        raw = "I 0"
+        m = PATTERN_SAFETY_MONITOR_ALL_RESPONSE.match(raw)
+        self.assertIsNone(m, msg="Pattern should not match an invalid response")
+
+    def test_excess_tokens(self):
+        # Too many fields (3 instead of 2) should fail to match:
+        raw = "0 1 99"
+        m = PATTERN_SAFETY_MONITOR_ALL_RESPONSE.match(raw)
         self.assertIsNone(m, msg="Pattern should not match when there are extra tokens")
 
 

@@ -31,3 +31,13 @@ PATTERN_OBSERVING_CONDITIONS_ALL_RESPONSE = compile(
 )
 
 # **************************************************************************************
+
+# Regex pattern for "G SM all" response: 1 status + 1 values (NA or boolean):
+PATTERN_SAFETY_MONITOR_ALL_RESPONSE = compile(
+    r"^"
+    r"(?P<status>[0-2])"  # status code 0,1,2
+    r"(?:\s+(?P<is_safe>NA|0|1))"
+    r"$"
+)
+
+# **************************************************************************************
