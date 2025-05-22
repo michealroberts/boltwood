@@ -18,6 +18,7 @@ source = { editable = "." }
 dependencies = [
     { name = "celerity" },
     { name = "pydantic" },
+    { name = "samps" },
 ]
 
 [package.dev-dependencies]
@@ -34,6 +35,7 @@ dev = [
 requires-dist = [
     { name = "celerity", specifier = ">=0.31.0" },
     { name = "pydantic", specifier = ">=2.11.4" },
+    { name = "samps", specifier = ">=0.1.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -341,6 +343,15 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/42/55/e6c90f13880aeef327746052907e7e930681f26a164fe130ddac28b08269/ruff-0.9.9-py3-none-win32.whl", hash = "sha256:6b4c376d929c25ecd6d87e182a230fa4377b8e5125a4ff52d506ee8c087153c1", size = 10227912, upload-time = "2025-02-28T10:16:31.55Z" },
     { url = "https://files.pythonhosted.org/packages/35/b2/da925693cb82a1208aa34966c0f36cb222baca94e729dd22a587bc22d0f3/ruff-0.9.9-py3-none-win_amd64.whl", hash = "sha256:837982ea24091d4c1700ddb2f63b7070e5baec508e43b01de013dc7eff974ff1", size = 11355632, upload-time = "2025-02-28T10:16:36.144Z" },
     { url = "https://files.pythonhosted.org/packages/31/d8/de873d1c1b020d668d8ec9855d390764cb90cf8f6486c0983da52be8b7b7/ruff-0.9.9-py3-none-win_arm64.whl", hash = "sha256:3ac78f127517209fe6d96ab00f3ba97cafe38718b23b1db3e96d8b2d39e37ddf", size = 10435860, upload-time = "2025-02-28T10:16:39.481Z" },
+]
+
+[[package]]
+name = "samps"
+version = "0.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/4e/08/e91b5c0b13238e6d093bfab9b731f9f7c6f7f3705a269b9312d35ed459ad/samps-0.1.0.tar.gz", hash = "sha256:2c1b50aa3f2088b5c714299cbefa3f661a78b80d717eeb53a84ad079e8706098", size = 27328, upload-time = "2025-05-08T12:44:25.678Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f3/b1/dd6424eb818c5fe29fc51c9e2762d37e1f8aa9505950c1ab709878bfb8bd/samps-0.1.0-py3-none-any.whl", hash = "sha256:8ab9f3f4d38f855be43d1665b5bd703d81739295f108f44d44b51e473c8ef631", size = 10609, upload-time = "2025-05-08T12:44:23.657Z" },
 ]
 
 [[package]]
