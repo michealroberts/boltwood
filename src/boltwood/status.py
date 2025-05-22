@@ -91,3 +91,41 @@ class BoltwoodIIIConditionsMonitorDeviceStatus(BaseModel):
 
 
 # **************************************************************************************
+
+
+class BoltwoodIIISafetyMonitorDeviceStatus(BaseModel):
+    """
+    Represents the status of a Boltwood III safety monitor device.
+    """
+
+    # The last current date and time received from the device (in UTC):
+    utc: datetime = Field(..., description="The current date and time.")
+
+    # The current safety state of the system:
+    is_safe: Optional[bool] = Field(None, description="Safety state of the system.")
+
+    @model_validator(mode="before")
+    def _coerce_na_and_str_numbers(cls, values: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        For every field except 'utc', if the incoming value is the string "NA" set it
+        to None.
+
+        If the value is a numeric-like string ("1"/"0"), convert it to a boolean.
+        """
+        for key, val in list(values.items()):
+            if key == "utc" or val is None:
+                continue
+
+            # Coerce literal "NA" to None
+            if isinstance(val, str) and val.strip().upper() == "NA":
+                values[key] = None
+                continue
+
+            # Coerce boolean strings to boolean
+            if isinstance(val, str):
+                values[key] = val.strip().lower() == "1"
+
+        return values
+
+
+# **************************************************************************************
