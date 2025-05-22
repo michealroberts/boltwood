@@ -10,7 +10,10 @@ from datetime import datetime, timezone
 
 from pydantic import ValidationError
 
-from boltwood.status import BoltwoodIIIConditionsMonitorDeviceStatus
+from boltwood.status import (
+    BoltwoodIIIConditionsMonitorDeviceStatus,
+    BoltwoodIIISafetyMonitorDeviceStatus,
+)
 
 # **************************************************************************************
 
@@ -96,6 +99,63 @@ class TestBoltwoodIIIConditionsMonitorDeviceStatus(unittest.TestCase):
         }
         with self.assertRaises(ValidationError):
             BoltwoodIIIConditionsMonitorDeviceStatus(**data)
+
+
+# **************************************************************************************
+
+
+class TestBoltwoodIIISafetyMonitorDeviceStatus(unittest.TestCase):
+    def setUp(self):
+        self.now = datetime.now(tz=timezone.utc)
+
+    def test_boolean_values(self):
+        for value in (True, False):
+            data = {
+                "utc": self.now,
+                "is_safe": value,
+            }
+            status = BoltwoodIIISafetyMonitorDeviceStatus(**data)
+            self.assertIs(status.is_safe, value)
+
+    def test_string_truthy_boolean(self):
+        data = {
+            "utc": self.now,
+            "is_safe": "1",
+        }
+        status = BoltwoodIIISafetyMonitorDeviceStatus(**data)
+        self.assertTrue(status.is_safe)
+
+    def test_string_falsy_boolean(self):
+        data = {
+            "utc": self.now,
+            "is_safe": "0",
+        }
+        status = BoltwoodIIISafetyMonitorDeviceStatus(**data)
+        self.assertFalse(status.is_safe)
+
+    def test_string_other_boolean(self):
+        data = {
+            "utc": self.now,
+            "is_safe": "TRUE",
+        }
+        status = BoltwoodIIISafetyMonitorDeviceStatus(**data)
+        self.assertFalse(status.is_safe)
+
+    def test_invalid_string_is_always_false(self):
+        data = {
+            "utc": self.now,
+            "is_safe": "not_a_bool",
+        }
+        status = BoltwoodIIISafetyMonitorDeviceStatus(**data)
+        self.assertFalse(status.is_safe)
+
+    def test_na_string_becomes_none(self):
+        data = {
+            "utc": self.now,
+            "is_safe": "NA",
+        }
+        status = BoltwoodIIISafetyMonitorDeviceStatus(**data)
+        self.assertIsNone(status.is_safe)
 
 
 # **************************************************************************************

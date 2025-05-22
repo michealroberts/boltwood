@@ -21,6 +21,7 @@ from .base_safety import (
 )
 from .status import (
     BoltwoodIIIConditionsMonitorDeviceStatus,
+    BoltwoodIIISafetyMonitorDeviceStatus,
 )
 
 # **************************************************************************************
@@ -45,6 +46,7 @@ __all__: list[str] = [
     "BaseSafetyMonitorDeviceParameters",
     "BaseSafetyMonitorDeviceState",
     "BoltwoodIIIConditionsMonitorDeviceStatus",
+    "BoltwoodIIISafetyMonitorDeviceStatus",
 ]
 
 # **************************************************************************************
