@@ -27,6 +27,7 @@ requires-python = ">=3.13"
 dependencies = [
     "celerity>=0.31.0",
     "pydantic>=2.11.4",
+    "samps>=0.1.0",
 ]
 
 [project.urls]
