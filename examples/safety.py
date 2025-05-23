@@ -45,8 +45,6 @@ async def main(port: str, baudrate: BaudrateType = 9600) -> None:
 
         print("[Description]", safety.get_description())
 
-        safety.refresh()
-
         await asyncio.sleep(10)
 
         print("[Is Safe]:", safety.is_safe())
