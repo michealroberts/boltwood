@@ -7,7 +7,7 @@
 
 import unittest
 
-from boltwood.utils import is_hexadecimal
+from boltwood.utils import is_hexadecimal, parse_semantic_version
 
 # **************************************************************************************
 
@@ -85,6 +85,41 @@ class TestIsHexadecimal(unittest.TestCase):
 
 
 # **************************************************************************************
+
+
+class TestParseSemanticVersion(unittest.TestCase):
+    def test_major_only(self):
+        """Major semantic version should be parsed correctly."""
+        self.assertEqual(parse_semantic_version("v12"), (12, 0, 0))
+        self.assertEqual(parse_semantic_version("12"), (12, 0, 0))
+
+    def test_major_minor(self):
+        """Major and minor semantic version should be parsed correctly."""
+        self.assertEqual(parse_semantic_version("1.2"), (1, 2, 0))
+        self.assertEqual(parse_semantic_version("v0.5"), (0, 5, 0))
+
+    def test_major_minor_patch(self):
+        """Major, minor, and patch semantic version should be parsed correctly."""
+        self.assertEqual(parse_semantic_version("1.2.3"), (1, 2, 3))
+        self.assertEqual(parse_semantic_version("v0.0.1"), (0, 0, 1))
+        self.assertEqual(parse_semantic_version("2.3.4"), (2, 3, 4))
+        self.assertEqual(parse_semantic_version("v1.2.3"), (1, 2, 3))
+
+    def test_prerelease_and_build_ignored(self):
+        """Pre-release and build metadata should be ignored in the parsed version."""
+        self.assertEqual(parse_semantic_version("2.3.4-alpha"), (2, 3, 4))
+        self.assertEqual(parse_semantic_version("1.2.3+build.5"), (1, 2, 3))
+        self.assertEqual(parse_semantic_version("v1.0.0-rc.1+001"), (1, 0, 0))
+
+    def test_invalid_versions(self) -> None:
+        for bad in ["", "v", "1.2.3.4", "version1", "1..2", "1.2.", "1.2.-beta"]:
+            with self.subTest(bad=bad):
+                with self.assertRaises(ValueError):
+                    parse_semantic_version(bad)
+
+
+# **************************************************************************************
+
 
 if __name__ == "__main__":
     unittest.main()
