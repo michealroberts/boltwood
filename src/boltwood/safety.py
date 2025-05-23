@@ -129,10 +129,6 @@ class BoltwoodIIISafetyMonitorDeviceInterface(BaseSafetyMonitorDeviceInterface):
 
         code, *result = response.split(" ", 1)
 
-        print(code)
-
-        print(result)
-
         # If the response code is not "0", raise an exception to indicate an error:
         if code != "0":
             msg = result[0] if result else "Unknown error"
