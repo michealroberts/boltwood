@@ -75,9 +75,9 @@ async def main(port: str, baudrate: BaudrateType = 9600) -> None:
 
         print("[Sky Brightness]:", sky_brightness)
 
-        # sky_quality = monitor.get_sky_quality()
+        sky_quality = monitor.get_sky_quality()
 
-        # print("[Sky Quality]:", sky_quality)
+        print("[Sky Quality]:", sky_quality)
 
         sky_temperature = monitor.get_sky_temperature()
 
