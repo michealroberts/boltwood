@@ -24,8 +24,8 @@ class DummyConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInterface
     It provides fixed return values for each of the abstract methods and properties.
     """
 
-    def __init__(self, params: BaseConditionsMonitorDeviceParameters) -> None:
-        super().__init__(params)
+    def __init__(self, id: int, params: BaseConditionsMonitorDeviceParameters) -> None:
+        super().__init__(id, params)
         # Initialize some attributes to verify that methods have been called.
         self.initialised = False
         self.reset_called = False
@@ -123,7 +123,6 @@ class TestBaseConditionsMonitorDeviceInterface(unittest.TestCase):
         params: BaseConditionsMonitorDeviceParameters = (
             BaseConditionsMonitorDeviceParameters(
                 {
-                    "id": 0,
                     "did": "ddid",
                     "vid": "dvid",
                     "pid": "dpid",
@@ -134,7 +133,7 @@ class TestBaseConditionsMonitorDeviceInterface(unittest.TestCase):
             )
         )
 
-        self.device = DummyConditionsMonitorDeviceInterface(params)
+        self.device = DummyConditionsMonitorDeviceInterface(id=0, params=params)
 
     def test_is_night_method_exists_and_returns_bool(self) -> None:
         """Test that is_night method exists and returns a boolean."""

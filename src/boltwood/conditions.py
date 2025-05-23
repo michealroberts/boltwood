@@ -106,6 +106,7 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
 
     def __init__(
         self,
+        id: int,
         params: BoltwoodIIIConditionsMonitorDeviceParameters,
     ) -> None:
         """
@@ -138,7 +139,7 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
         self._elevation = params.get("elevation", 0.0)
 
         # Set the identifier for the device:
-        self._id = params.get("id", 0)
+        self._id = id
 
     @property
     def id(self) -> int:

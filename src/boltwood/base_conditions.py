@@ -18,8 +18,6 @@ from .base import BaseDeviceInterface, BaseDeviceParameters
 
 
 class BaseConditionsMonitorDeviceParameters(BaseDeviceParameters):
-    # The numeric ID/index for this conditions monitor (0, 1, 2, etc.):
-    id: int
     # The latitude of the conditions monitor (in degrees):
     latitude: float
     # The longitude of the conditions monitor (in degrees):
@@ -52,7 +50,11 @@ class BaseConditionsMonitorDeviceInterface(BaseDeviceInterface):
     # The elevation of the conditions monitor (in meters):
     _elevation: float = 0.0
 
-    def __init__(self, params: BaseConditionsMonitorDeviceParameters) -> None:
+    def __init__(
+        self,
+        id: int,
+        params: BaseConditionsMonitorDeviceParameters,
+    ) -> None:
         """
         Initialize the conditions monitor device with the given parameters.
 
@@ -60,7 +62,7 @@ class BaseConditionsMonitorDeviceInterface(BaseDeviceInterface):
             params (BaseConditionsMonitorDeviceParameters): The parameters for the device.
         """
         # Set the identifier for the device:
-        self._id = params.get("id", 0)
+        self._id = id
 
         # Set the site geographic coordinates (latitude, longitude, elevation) of the conditions monitor:
         self._latitude = params.get("latitude", 0.0)
