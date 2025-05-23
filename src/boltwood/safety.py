@@ -129,11 +129,15 @@ class BoltwoodIIISafetyMonitorDeviceInterface(BaseSafetyMonitorDeviceInterface):
 
         code, *result = response.split(" ", 1)
 
+        print(code)
+
+        print(result)
+
         # If the response code is not "0", raise an exception to indicate an error:
         if code != "0":
             msg = result[0] if result else "Unknown error"
             raise RuntimeError(
-                f"[Safety Monitor ID {self.id}]: Error reading OC all: {msg}"
+                f"[Safety Monitor ID {self.id}]: Error reading SM all: {msg}"
             )
 
         parameters = PATTERN_SAFETY_MONITOR_ALL_RESPONSE.match(response)
@@ -141,7 +145,7 @@ class BoltwoodIIISafetyMonitorDeviceInterface(BaseSafetyMonitorDeviceInterface):
         # If the response does not match the expected pattern, raise an exception:
         if not parameters:
             raise RuntimeError(
-                f"[Safety Monitor ID {self.id}]: Error reading OC all: {response}"
+                f"[Safety Monitor ID {self.id}]: Error reading SM all: {response}"
             )
 
         data = {
