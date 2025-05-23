@@ -751,7 +751,7 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
         try:
             return self._read_float_parameter("OC", "skyquality")
         except Exception as e:
-            warning(f"[Conditions Monitor ID {self.id}]: {e}")
+            warning(e)
             # If the wind direction is not available, return -inf:
             return -inf
 
@@ -775,7 +775,8 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
         """
         try:
             return self._read_float_parameter("OC", "winddirection")
-        except NotImplementedError:
+        except Exception as e:
+            warning(e)
             # If the wind direction is not available, return -inf:
             return -inf
 
