@@ -242,6 +242,9 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
         # If the response code is not "0", raise an exception to indicate an error:
         if code != "0":
             msg = result[0] if result else "Unknown error"
+
+            print(msg)
+
             raise RuntimeError(
                 f"[Conditions Monitor ID {self.id}]: Error reading {subsystem} {parameter}: {msg}"
             )
