@@ -744,7 +744,9 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
         Returns:
             float: The current sky quality reading (as a percentage).
         """
-        return self._read_float_parameter("OC", "skyquality")
+        raise NotImplementedError(
+            "get_sky_quality() method is not implemented on Boltwood III Conditions Sensor."
+        )
 
     def get_temperature(self) -> float:
         """
