@@ -166,11 +166,9 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
         now = datetime.now(timezone.utc)
 
         # Read the response from the device:
-        response = self._serial.read().decode("ascii").strip()
+        response = self._serial.readline().decode("ascii").strip()
 
         code, *result = response.split(" ", 1)
-
-        print(code)
 
         # If the response code is not "0", raise an exception to indicate an error:
         if code != "0":
@@ -178,6 +176,8 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
             raise RuntimeError(
                 f"[Conditions Monitor ID {self.id}]: Error reading OC all: {msg}"
             )
+
+        print(response)
 
         parameters = PATTERN_OBSERVING_CONDITIONS_ALL_RESPONSE.match(response)
 
