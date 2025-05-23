@@ -46,6 +46,14 @@ async def main(port: str, baudrate: BaudrateType = 9600) -> None:
         print(status)
 
         print("[Connected]:", monitor.is_connected())
+
+        print("[Serial]", monitor.get_serial_number())
+
+        monitor.refresh()
+
+        status = monitor.get_status()
+
+        print(status)
     except asyncio.CancelledError:
         print("Operation was cancelled.")
     except KeyboardInterrupt:

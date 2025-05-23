@@ -177,8 +177,6 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
                 f"[Conditions Monitor ID {self.id}]: Error reading OC all: {msg}"
             )
 
-        print(response)
-
         parameters = PATTERN_OBSERVING_CONDITIONS_ALL_RESPONSE.match(response)
 
         # If the response does not match the expected pattern, raise an exception:
@@ -237,7 +235,7 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
         # Write the command to the device:
         self._serial.write(command)
 
-        response = self._serial.read().decode("ascii").strip()
+        response = self._serial.readline().decode("ascii").strip()
 
         code, *result = response.split(" ", 1)
 
@@ -430,7 +428,7 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
         # Write the read command to the device:
         self._serial.write(command)
 
-        response = self._serial.read().decode("ascii").strip()
+        response = self._serial.readline().decode("ascii").strip()
 
         # The format of the response is, e.g., "0 <SENSOR_DESCRIPTION>" so we split on
         # the first space:
@@ -463,7 +461,7 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
         # Write the read command to the device:
         self._serial.write(command)
 
-        response = self._serial.read().decode("ascii").strip()
+        response = self._serial.readline().decode("ascii").strip()
 
         # The format of the response is, e.g., "0 BCS322051101" so we split on
         # the first space:
@@ -819,7 +817,7 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
         self._serial.write(command)
 
         # Read the acknowledgment response from the device:
-        response = self._serial.read().decode("ascii").strip()
+        response = self._serial.readline().decode("ascii").strip()
 
         at = datetime.now(timezone.utc)
 
