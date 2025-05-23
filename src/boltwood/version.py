@@ -9,6 +9,6 @@ from typing import Tuple
 
 # **************************************************************************************
 
-BOLTWOOD_DRIVER_SEMANTIC_VERSION: Tuple[int, int, int] = (0, 0, 0)
+BOLTWOOD_DRIVER_SEMANTIC_VERSION: Tuple[int, int, int] = (0, 1, 0)
 
 # **************************************************************************************
