@@ -179,7 +179,7 @@ class BoltwoodIIISafetyMonitorDeviceInterface(BaseSafetyMonitorDeviceInterface):
             self.connect(timeout=timeout, retries=retries)
 
             # Start polling the decive for the latest safety status:
-            self._start_polling()
+            # self._start_polling()
 
         # Keep a track of the number of attempts:
         i = 0
