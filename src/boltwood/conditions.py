@@ -117,7 +117,7 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
                 containing device parameters such as vendor ID (vid), product ID (pid),
                 or device ID (did).
         """
-        super().__init__(params)
+        super().__init__(id, params)
 
         # Set the port of the device:
         self._port = params.get("port", "/dev/ttyUSB0")
@@ -137,9 +137,6 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
         self._latitude = params.get("latitude", 0.0)
         self._longitude = params.get("longitude", 0.0)
         self._elevation = params.get("elevation", 0.0)
-
-        # Set the identifier for the device:
-        self._id = id
 
     @property
     def id(self) -> int:
