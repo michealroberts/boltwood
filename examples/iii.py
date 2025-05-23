@@ -22,7 +22,6 @@ from boltwood import (
 async def main(port: str, baudrate: BaudrateType = 9600) -> None:
     params: BoltwoodIIIConditionsMonitorDeviceParameters = (
         BoltwoodIIIConditionsMonitorDeviceParameters(
-            id=0,
             name="",
             description="",
             port=port,
@@ -36,7 +35,7 @@ async def main(port: str, baudrate: BaudrateType = 9600) -> None:
         )
     )
 
-    monitor = BoltwoodIIIConditionsMonitorDeviceInterface(params)
+    monitor = BoltwoodIIIConditionsMonitorDeviceInterface(id=0, params=params)
 
     try:
         monitor.initialise()
