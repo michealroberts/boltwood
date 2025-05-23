@@ -187,6 +187,16 @@ class BaseConditionsMonitorDeviceInterface(BaseDeviceInterface):
         raise NotImplementedError("get_sky_temperature() method must be implemented.")
 
     @abstractmethod
+    def get_sky_quality(self) -> float:
+        """
+        Retrieve the current sky quality reading from the device, if available.
+
+        Returns:
+            float: The current sky quality reading (dimensionless).
+        """
+        raise NotImplementedError("get_sky_quality() method must be implemented.")
+
+    @abstractmethod
     def get_temperature(self) -> float:
         """
         Retrieve the current temperature reading from the device.
