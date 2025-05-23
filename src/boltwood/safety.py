@@ -175,11 +175,11 @@ class BoltwoodIIISafetyMonitorDeviceInterface(BaseSafetyMonitorDeviceInterface):
             # We leave the device state as DISCONNECTED until connect() is called:
             self.state = BaseDeviceState.DISCONNECTED
 
-            # Start polling the decive for the latest safety status:
-            self._start_polling()
-
             # If we have a device ID, attempt to connect:
             self.connect(timeout=timeout, retries=retries)
+
+            # Start polling the decive for the latest safety status:
+            self._start_polling()
 
         # Keep a track of the number of attempts:
         i = 0
