@@ -7,6 +7,7 @@
 
 from concurrent.futures import ThreadPoolExecutor, TimeoutError
 from datetime import datetime, timezone
+from logging import warning
 from math import inf
 from threading import Event, Thread
 from time import sleep
@@ -749,7 +750,8 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
         """
         try:
             return self._read_float_parameter("OC", "skyquality")
-        except NotImplementedError:
+        except Exception as e:
+            warning(f"[Conditions Monitor ID {self.id}]: {e}")
             # If the wind direction is not available, return -inf:
             return -inf
 
