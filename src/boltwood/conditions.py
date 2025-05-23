@@ -445,9 +445,15 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
                 f"[Conditions Monitor ID {self.id}]: Error reading description: {result[0]}"
             )
 
+        description = result[0].strip()
+
         # Return the description from the result, if available, otherwise return the
         # default description:
-        return result[0] if result else self._description
+        return (
+            description
+            if description and description != "description"
+            else self._description
+        )
 
     def get_serial_number(self) -> str:
         """
