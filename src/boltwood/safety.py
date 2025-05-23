@@ -471,11 +471,11 @@ class BoltwoodIIISafetyMonitorDeviceInterface(BaseSafetyMonitorDeviceInterface):
             except Exception as error:
                 # If we have an unexpected error, log it and continue:
                 print(f"[Safety Monitor ID {self.id}]: Unexpected error: {error}")
-                sleep(1)
+                sleep(9)
 
             finally:
                 # Sleep for a short period before polling again:
-                continue
+                sleep(1)
 
     def _start_polling(self) -> None:
         """
