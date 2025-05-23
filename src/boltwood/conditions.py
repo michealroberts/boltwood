@@ -744,9 +744,11 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
         Returns:
             float: The current sky quality reading (as a percentage).
         """
-        raise NotImplementedError(
-            "get_sky_quality() method is not implemented on Boltwood III Conditions Sensor."
-        )
+        try:
+            return self._read_float_parameter("OC", "skyquality")
+        except NotImplementedError:
+            # If the wind direction is not available, return -inf:
+            return -inf
 
     def get_temperature(self) -> float:
         """
@@ -766,7 +768,11 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
             a wind blowing from the North, 90° indicates a wind blowing from the East,
             and so on.
         """
-        return self._read_float_parameter("OC", "winddirection")
+        try:
+            return self._read_float_parameter("OC", "winddirection")
+        except NotImplementedError:
+            # If the wind direction is not available, return -inf:
+            return -inf
 
     def get_wind_gust(self) -> float:
         """
