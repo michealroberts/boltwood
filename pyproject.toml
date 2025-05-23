@@ -1,6 +1,6 @@
 [project]
 name = "boltwood"
-version = "0.0.0"
+version = "0.1.0"
 description = "A hypermodern, type-safe, zero-dependency python library for the Boltwood II & III cloud sensors."
 authors = [{ name = "michealroberts", email = "michael@observerly.com" }]
 maintainers = [{ name = "Michael Roberts", email = "michael@observerly.com" }]
@@ -24,11 +24,7 @@ classifiers = [
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.13"
-dependencies = [
-    "celerity>=0.31.0",
-    "pydantic>=2.11.4",
-    "samps>=0.1.0",
-]
+dependencies = ["celerity>=0.31.0", "pydantic>=2.11.4", "samps>=0.1.0"]
 
 [project.urls]
 Source = "https://github.com/michealroberts/boltwood"
