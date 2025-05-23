@@ -179,7 +179,7 @@ class BoltwoodIIISafetyMonitorDeviceInterface(BaseSafetyMonitorDeviceInterface):
             self.connect(timeout=timeout, retries=retries)
 
             # Start polling the decive for the latest safety status:
-            # self._start_polling()
+            self._start_polling()
 
         # Keep a track of the number of attempts:
         i = 0
@@ -468,12 +468,14 @@ class BoltwoodIIISafetyMonitorDeviceInterface(BaseSafetyMonitorDeviceInterface):
             except RuntimeError as error:
                 # If we have a runtime error, log it and continue:
                 print(f"[Safety Monitor ID {self.id}]: {error}")
-                break
+                sleep(9)
+                continue
 
             except Exception as error:
                 # If we have an unexpected error, log it and continue:
                 print(f"[Safety Monitor ID {self.id}]: Unexpected error: {error}")
                 sleep(9)
+                continue
 
             finally:
                 # Sleep for a short period before polling again:
@@ -485,6 +487,9 @@ class BoltwoodIIISafetyMonitorDeviceInterface(BaseSafetyMonitorDeviceInterface):
 
         This method should implement the logic to begin polling the device for data.
         """
+        if self._polling_thread and self._polling_thread.is_alive():
+            return
+
         self._polling_thread_closing_event = Event()
 
         self._polling_thread = Thread(
