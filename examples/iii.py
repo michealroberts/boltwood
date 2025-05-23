@@ -49,6 +49,8 @@ async def main(port: str, baudrate: BaudrateType = 9600) -> None:
 
         print("[Serial Number]", monitor.get_serial_number())
 
+        print("[Firmware Version]", monitor.get_firmware_version())
+
         print("[Description]", monitor.get_description())
 
         monitor.refresh()

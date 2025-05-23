@@ -30,6 +30,7 @@ from .base_conditions import (
 )
 from .responses import PATTERN_OBSERVING_CONDITIONS_ALL_RESPONSE
 from .status import BoltwoodIIIConditionsMonitorDeviceStatus
+from .utils import parse_semantic_version
 
 # **************************************************************************************
 
@@ -504,9 +505,37 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
         Get the version of the device firmware as a tuple (major, minor, patch).
 
         Returns:
-            Tuple[int, int, int]: The firmware version. Defaults to (0, 0, 0).
+            Tuple[int, int, int]: The firmware version. Defaults to (-1, -1, -1).
         """
-        raise NotImplementedError("Firmware version not available")
+        if self.state != BaseDeviceState.CONNECTED:
+            return -1, -1, -1
+
+        # Construct the command to send to the device for the firmware version:
+        command = b"G DD fwrev\n"
+
+        # Write the read command to the device:
+        self._serial.write(command)
+
+        response = self._serial.readline().decode("ascii").strip()
+
+        # The format of the response is, e.g., "0 BCS322051101" so we split on
+        # the first space:
+        code, *result = response.split(" ", 1)
+
+        # If the response code is not "0", return an empty string as we assume
+        # the device is not connected or the command failed:
+        if code != "0":
+            raise RuntimeError(
+                f"[Conditions Monitor ID {self.id}]: Error reading firmware version: {result[0]}"
+            )
+
+        version = result[0].strip()
+
+        try:
+            return parse_semantic_version(version)
+        except ValueError:
+            # If we have a value error, return -1, -1, -1 as the default version:
+            return -1, -1, -1
 
     def get_capabilities(self) -> List[str]:
         """
