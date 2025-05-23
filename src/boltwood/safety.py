@@ -329,7 +329,7 @@ class BoltwoodIIISafetyMonitorDeviceInterface(BaseSafetyMonitorDeviceInterface):
             return self._description
 
         # Construct the command to send to the device for the description:
-        command = b"G DD sensordescription\n"
+        command = b"G OC sensordescription 0\n"
 
         # Write the read command to the device:
         self._serial.write(command)
@@ -344,12 +344,18 @@ class BoltwoodIIISafetyMonitorDeviceInterface(BaseSafetyMonitorDeviceInterface):
         # the device is not connected or the command failed:
         if code != "0":
             raise RuntimeError(
-                f"[Safety Monitor ID {self.id}]: Error reading description: {result[0]}"
+                f"[Conditions Monitor ID {self.id}]: Error reading description: {result[0]}"
             )
+
+        description = result[0].strip()
 
         # Return the description from the result, if available, otherwise return the
         # default description:
-        return result[0] if result else self._description
+        return (
+            description
+            if description and description != "description"
+            else self._description
+        )
 
     def get_serial_number(self) -> str:
         """
