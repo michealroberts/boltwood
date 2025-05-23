@@ -483,7 +483,7 @@ class BoltwoodIIISafetyMonitorDeviceInterface(BaseSafetyMonitorDeviceInterface):
 
             finally:
                 # Sleep for a short period before polling again:
-                sleep(1)
+                sleep(5)
 
     def _start_polling(self) -> None:
         """
