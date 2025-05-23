@@ -427,7 +427,7 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
             return self._description
 
         # Construct the command to send to the device for the description:
-        command = b"P OC sensordescription\n"
+        command = b"G OC sensordescription 0\n"
 
         # Write the read command to the device:
         self._serial.write(command)
