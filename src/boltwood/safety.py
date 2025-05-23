@@ -182,9 +182,6 @@ class BoltwoodIIISafetyMonitorDeviceInterface(BaseSafetyMonitorDeviceInterface):
             # If we have a device ID, attempt to connect:
             self.connect(timeout=timeout, retries=retries)
 
-            # Start polling the decive for the latest safety status:
-            self._start_polling()
-
         # Keep a track of the number of attempts:
         i = 0
 
@@ -210,6 +207,9 @@ class BoltwoodIIISafetyMonitorDeviceInterface(BaseSafetyMonitorDeviceInterface):
 
             # Increment the retry counter:
             i += 1
+
+        # Start polling the decive for the latest safety status:
+        self._start_polling()
 
     def reset(self) -> None:
         """
