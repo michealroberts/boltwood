@@ -31,6 +31,7 @@ from .base_conditions import (
 from .responses import PATTERN_OBSERVING_CONDITIONS_ALL_RESPONSE
 from .status import BoltwoodIIIConditionsMonitorDeviceStatus
 from .utils import parse_semantic_version
+from .version import BOLTWOOD_DRIVER_SEMANTIC_VERSION
 
 # **************************************************************************************
 
@@ -493,12 +494,9 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
         Get the version of the device driver as a tuple (major, minor, patch).
 
         Returns:
-            Tuple[int, int, int]: The driver version. Defaults to (0, 0, 0).
+            Tuple[int, int, int]: The driver version.
         """
-        if self.state == BaseDeviceState.DISCONNECTED:
-            return 0, 0, 0
-
-        return 0, 0, 0
+        return BOLTWOOD_DRIVER_SEMANTIC_VERSION
 
     def get_firmware_version(self) -> Tuple[int, int, int]:
         """

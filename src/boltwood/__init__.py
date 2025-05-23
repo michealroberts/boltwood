@@ -27,10 +27,11 @@ from .status import (
     BoltwoodIIIConditionsMonitorDeviceStatus,
     BoltwoodIIISafetyMonitorDeviceStatus,
 )
+from .version import BOLTWOOD_DRIVER_SEMANTIC_VERSION
 
 # **************************************************************************************
 
-__version__ = "0.0.0"
+__version__ = ".".join(map(str, BOLTWOOD_DRIVER_SEMANTIC_VERSION))
 
 # **************************************************************************************
 
