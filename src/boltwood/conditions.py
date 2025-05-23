@@ -752,7 +752,7 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
             return self._read_float_parameter("OC", "skyquality")
         except Exception as e:
             warning(e)
-            # If the wind direction is not available, return -inf:
+            # If the sky quality is not available, return -inf:
             return -inf
 
     def get_temperature(self) -> float:
@@ -787,7 +787,12 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
         Returns:
             float: The current wind gust reading (in meters per second).
         """
-        return self._read_float_parameter("OC", "windgust")
+        try:
+            return self._read_float_parameter("OC", "windgust")
+        except Exception as e:
+            warning(e)
+            # If the wind gust is not available, return -inf:
+            return -inf
 
     def get_wind_speed(self) -> float:
         """
