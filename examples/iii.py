@@ -47,13 +47,57 @@ async def main(port: str, baudrate: BaudrateType = 9600) -> None:
 
         print("[Connected]:", monitor.is_connected())
 
-        print("[Serial]", monitor.get_serial_number())
+        print("[Serial Number]", monitor.get_serial_number())
 
         monitor.refresh()
 
         status = monitor.get_status()
 
         print(status)
+
+        atmospheric_dew_point = monitor.get_atmospheric_dew_point()
+
+        print("[Atmospheric Dew Point]:", atmospheric_dew_point)
+
+        cloud_coverage = monitor.get_cloud_coverage()
+
+        print("[Cloud Coverage]:", cloud_coverage)
+
+        humidity = monitor.get_humidity()
+
+        print("[Humidity]:", humidity)
+
+        precipitation_rate = monitor.get_precipitation_rate()
+
+        print("[Precipitation Rate]:", precipitation_rate)
+
+        sky_brightness = monitor.get_sky_brightness()
+
+        print("[Sky Brightness]:", sky_brightness)
+
+        sky_quality = monitor.get_sky_quality()
+
+        print("[Sky Quality]:", sky_quality)
+
+        sky_temperature = monitor.get_sky_temperature()
+
+        print("[Sky Temperature]:", sky_temperature)
+
+        temperature = monitor.get_temperature()
+
+        print("[Temperature]:", temperature)
+
+        wind_direction = monitor.get_wind_direction()
+
+        print("[Wind Direction]:", wind_direction)
+
+        wind_gust = monitor.get_wind_gust()
+
+        print("[Wind Gust]:", wind_gust)
+
+        wind_speed = monitor.get_wind_speed()
+
+        print("[Wind Speed]:", wind_speed)
     except asyncio.CancelledError:
         print("Operation was cancelled.")
     except KeyboardInterrupt:
