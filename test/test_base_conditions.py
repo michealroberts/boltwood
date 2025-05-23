@@ -92,6 +92,9 @@ class DummyConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInterface
     def get_sky_temperature(self) -> float:
         return -5.5
 
+    def get_sky_quality(self):
+        return 0.8
+
     def get_temperature(self) -> float:
         return 12.3
 
@@ -212,6 +215,14 @@ class TestBaseConditionsMonitorDeviceInterface(unittest.TestCase):
             "Missing get_sky_temperature method",
         )
         self.assertEqual(self.device.get_sky_temperature(), -5.5)
+
+    def test_get_sky_quality(self) -> None:
+        """Test that get_sky_quality exists and returns correct value."""
+        self.assertTrue(
+            hasattr(self.device, "get_sky_quality"),
+            "Missing get_sky_quality method",
+        )
+        self.assertEqual(self.device.get_sky_quality(), 0.8)
 
     def test_get_temperature(self) -> None:
         """Test that get_temperature exists and returns correct value."""
