@@ -27,8 +27,7 @@ class BaseSafetyMonitorDeviceState(Enum):
 
 
 class BaseSafetyMonitorDeviceParameters(BaseDeviceParameters):
-    # The numeric ID/index for this safety monitor (0, 1, 2, etc.):
-    id: int
+    pass
 
 
 # **************************************************************************************
@@ -49,10 +48,11 @@ class BaseSafetyMonitorDeviceInterface(BaseDeviceInterface):
     _id: int = 0
 
     # The state of the device is the safety state of the system:
-    _safety_state: BaseSafetyMonitorDeviceState = BaseSafetyMonitorDeviceState.SAFE
+    _safety_state: BaseSafetyMonitorDeviceState = BaseSafetyMonitorDeviceState.UNSAFE
 
     def __init__(
         self,
+        id: int,
         parameters: BaseSafetyMonitorDeviceParameters,
         **extras: Any,
     ) -> None:
@@ -62,10 +62,10 @@ class BaseSafetyMonitorDeviceInterface(BaseDeviceInterface):
         Args:
             parameters (BaseSafetyMonitorDeviceParameters): Device parameters.
         """
-        super().__init__(parameters, **extras)
+        # Set the identifier for the device:
+        self._id = id
 
-        self._id = parameters.get("id", 0)
-        self._safety_state = BaseSafetyMonitorDeviceState.SAFE
+        self._safety_state = BaseSafetyMonitorDeviceState.UNSAFE
 
     def is_safe(self) -> bool:
         """

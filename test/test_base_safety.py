@@ -25,9 +25,9 @@ class DummySafetyMonitorDeviceInterface(BaseSafetyMonitorDeviceInterface):
     """
 
     def __init__(
-        self, parameters: BaseSafetyMonitorDeviceParameters, **extras: Any
+        self, id: int, params: BaseSafetyMonitorDeviceParameters, **extras: Any
     ) -> None:
-        super().__init__(parameters, **extras)
+        super().__init__(id, params, **extras)
         self.initialised = False
         self.reset_called = False
         self.connected = False
@@ -66,8 +66,8 @@ class DummySafetyMonitorDeviceInterface(BaseSafetyMonitorDeviceInterface):
         return ["safety_check"]
 
     def refresh(self) -> None:
-        # Flip to unsafe to simulate a safety event:
-        self._safety_state = BaseSafetyMonitorDeviceState.UNSAFE
+        # Flip to safe to simulate a safety event:
+        self._safety_state = BaseSafetyMonitorDeviceState.SAFE
 
 
 # **************************************************************************************
@@ -77,25 +77,24 @@ class TestBaseSafetyMonitorDeviceInterface(unittest.TestCase):
     def setUp(self) -> None:
         params = BaseSafetyMonitorDeviceParameters(
             {
-                "id": 1,
                 "did": "ddid",
                 "vid": "dvid",
                 "pid": "dpid",
             }
         )
-        self.device = DummySafetyMonitorDeviceInterface(params)
+        self.device = DummySafetyMonitorDeviceInterface(id=0, params=params)
 
     def test_initial_state_safe(self) -> None:
         """Device should start in SAFE state."""
         self.assertTrue(hasattr(self.device, "is_safe"), "Missing is_safe method")
-        self.assertTrue(self.device.is_safe())
-        self.assertFalse(self.device.is_unsafe())
+        self.assertFalse(self.device.is_safe())
+        self.assertTrue(self.device.is_unsafe())
 
     def test_refresh_changes_to_unsafe(self) -> None:
         """Calling refresh() should transition the device to UNSAFE."""
         self.device.refresh()
-        self.assertFalse(self.device.is_safe())
-        self.assertTrue(self.device.is_unsafe())
+        self.assertTrue(self.device.is_safe())
+        self.assertFalse(self.device.is_unsafe())
 
     def test_refresh_method_exists_and_no_error(self) -> None:
         """Test that refresh exists and does not raise unexpected errors."""
