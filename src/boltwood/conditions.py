@@ -9,9 +9,7 @@ from concurrent.futures import ThreadPoolExecutor, TimeoutError
 from datetime import datetime, timezone
 from logging import warning
 from math import inf
-from threading import Event, Thread
-from time import sleep
-from typing import List, Optional, Tuple
+from typing import List, Tuple
 
 from celerity.coordinates import GeographicCoordinate
 from celerity.night import is_night
@@ -70,10 +68,6 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
 
     # The raw data received from the device:
     _raw_data: bytes = b""
-
-    _polling_thread: Optional[Thread] = None
-
-    _polling_thread_closing_event: Optional[Event] = None
 
     # When did we last successfully poll the device?
     _last_polling_time: datetime = datetime(1970, 1, 1, 0, 0, 0, 0, tzinfo=timezone.utc)
@@ -370,9 +364,6 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
             self.state = BaseDeviceState.DISCONNECTED
             return
 
-        # Stop the polling thread if it is running:
-        self._stop_polling()
-
         # Close the serial port:
         self._serial.close()
 
@@ -560,101 +551,6 @@ class BoltwoodIIIConditionsMonitorDeviceInterface(BaseConditionsMonitorDeviceInt
             bool: True if the device is closed; otherwise, False.
         """
         return not self._serial.is_open()
-
-    def _poll(self) -> None:
-        """
-        Poll the device for data.
-
-        This method should implement the logic to retrieve data from the device.
-        """
-        # If we are not ready to poll, return immediately:
-        if not self._polling_thread_closing_event or not self._polling_thread:
-            return
-
-        # Poll the device for data until the closing event is set:
-        while not self._polling_thread_closing_event.is_set():
-            try:
-                # Retrieve the latest conditions from the device:
-                self._poll_latest_conditions()
-
-            except RuntimeError as error:
-                # If we have a runtime error, log it and continue:
-                print(f"[Conditions Monitor ID {self.id}]: {error}")
-                break
-
-            except Exception as error:
-                # If we have an unexpected error, log it and continue:
-                print(f"[Conditions Monitor ID {self.id}]: Unexpected error: {error}")
-                sleep(9)
-
-            finally:
-                # Sleep for a short period before polling again:
-                sleep(1)
-
-    def _start_polling(self) -> None:
-        """
-        Start polling the device for data.
-
-        This method should implement the logic to begin polling the device for data.
-        """
-        self._polling_thread_closing_event = Event()
-
-        self._polling_thread = Thread(
-            target=self._poll,
-            name=f"ConditionsMonitorDevice-{self._id}-PollingThread",
-            daemon=True,
-        )
-        self._polling_thread.start()
-
-    def _stop_polling(self) -> None:
-        """
-        Stop polling the device for data.
-
-        This method should implement the logic to stop polling the device for data.
-        """
-        # Stop the polling thread if it is running:
-        self._polling_thread_closing_event.set() if self._polling_thread_closing_event else None
-        # Wait for the thread to finish:
-        self._polling_thread.join() if self._polling_thread else None
-        # Reset the polling thread to None:
-        self._polling_thread = None
-        # Reset the closing event to None:
-        self._polling_thread_closing_event = None
-
-    def _poll_latest_conditions(self) -> None:
-        """
-        Retrieve the current sensor readings from the device.
-
-        This method should implement the logic to read the latest sensor data from the device
-        and update the internal state of the device interface accordingly.
-        """
-        if self._is_closed():
-            raise RuntimeError(
-                f"[Conditions Monitor ID {self.id}]: Serial port {self._port} is closed."
-            )
-
-        # Read the latest data from the device:
-        self.refresh()
-
-        # Read all of the latest conditions from the device, (if available). This will
-        # update the internal state of the device interface:
-        status = self._read_all_parameters()
-
-        # Update the internal state of the device interface with the latest conditions:
-        self._last_polling_time = status.utc
-        self._atmospheric_dew_point = status.atmospheric_dew_point or inf
-        self._cloud_coverage = status.cloud_coverage or inf
-        self._humidity = status.humidity or inf
-        self._pressure = (status.pressure or inf) * 100.0
-        self._precipitation_rate = status.precipitation_rate or inf
-        self._sky_brightness = status.sky_brightness or inf
-        self._sky_temperature = status.sky_temperature or inf
-        self._sky_quality = status.sky_quality or inf
-        self._star_full_width_half_maximum = status.star_full_width_half_maximum or inf
-        self._temperature = status.temperature or inf
-        self._wind_direction = status.wind_direction or inf
-        self._wind_speed = status.wind_speed or inf
-        self._wind_gust = status.wind_gust or inf
 
     def is_night(self) -> bool:
         """
