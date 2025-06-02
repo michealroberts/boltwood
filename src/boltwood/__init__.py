@@ -23,6 +23,10 @@ from .conditions import (
     BoltwoodIIIConditionsMonitorDeviceInterface,
     BoltwoodIIIConditionsMonitorDeviceParameters,
 )
+from .safety import (
+    BoltwoodIIISafetyMonitorDeviceInterface,
+    BoltwoodIIISafetyMonitorDeviceParameters,
+)
 from .status import (
     BoltwoodIIIConditionsMonitorDeviceStatus,
     BoltwoodIIISafetyMonitorDeviceStatus,
@@ -53,6 +57,8 @@ __all__: list[str] = [
     "BoltwoodIIIConditionsMonitorDeviceInterface",
     "BoltwoodIIIConditionsMonitorDeviceParameters",
     "BoltwoodIIIConditionsMonitorDeviceStatus",
+    "BoltwoodIIISafetyMonitorDeviceInterface",
+    "BoltwoodIIISafetyMonitorDeviceParameters",
     "BoltwoodIIISafetyMonitorDeviceStatus",
 ]
 
