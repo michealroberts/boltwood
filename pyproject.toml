@@ -1,6 +1,6 @@
 [project]
 name = "boltwood"
-version = "0.2.0"
+version = "0.3.0"
 description = "A hypermodern, type-safe, zero-dependency python library for the Boltwood II & III cloud sensors."
 authors = [{ name = "michealroberts", email = "michael@observerly.com" }]
 maintainers = [{ name = "Michael Roberts", email = "michael@observerly.com" }]
