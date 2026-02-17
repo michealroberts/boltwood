@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.13"
 
 [[package]]
@@ -35,7 +35,7 @@ dev = [
 requires-dist = [
     { name = "celerity", specifier = ">=0.31.0" },
     { name = "pydantic", specifier = ">=2.11.4" },
-    { name = "samps", specifier = ">=0.1.0" },
+    { name = "samps", specifier = ">=0.11.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -347,11 +347,11 @@ wheels = [
 
 [[package]]
 name = "samps"
-version = "0.1.0"
+version = "0.11.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/4e/08/e91b5c0b13238e6d093bfab9b731f9f7c6f7f3705a269b9312d35ed459ad/samps-0.1.0.tar.gz", hash = "sha256:2c1b50aa3f2088b5c714299cbefa3f661a78b80d717eeb53a84ad079e8706098", size = 27328, upload-time = "2025-05-08T12:44:25.678Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ce/9b/5fb111b5d9f2a7509aee02d5dd67bdd81fb7478f213247cc8faff23839a5/samps-0.11.0.tar.gz", hash = "sha256:c8199bf7c61c36acf666157429d428ebdf353d2e63ce6ff9dfeb56e230e27de9", size = 51912, upload-time = "2025-12-02T15:54:47.615Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f3/b1/dd6424eb818c5fe29fc51c9e2762d37e1f8aa9505950c1ab709878bfb8bd/samps-0.1.0-py3-none-any.whl", hash = "sha256:8ab9f3f4d38f855be43d1665b5bd703d81739295f108f44d44b51e473c8ef631", size = 10609, upload-time = "2025-05-08T12:44:23.657Z" },
+    { url = "https://files.pythonhosted.org/packages/57/03/6a686623bc2e24c06124d9174a3bdfba079aee13cb70a78ff1838ba21217/samps-0.11.0-py3-none-any.whl", hash = "sha256:7968f6e3602a601a11e834cdd30a9c4aa7dcba5043e0159c40eea0e218c1ef0b", size = 24673, upload-time = "2025-12-02T15:54:46.185Z" },
 ]
 
 [[package]]
