@@ -88,10 +88,18 @@ class TestPatternObservingConditionsAllResponse(unittest.TestCase):
         self.assertIsNone(m, msg="Pattern should not match an invalid response")
 
     def test_negative_values(self):
-        # Negative numbers are not supported by the regex, so this should not match:
-        raw = "0 -5 50 10 50 1000 1 100 5 15 2 20 180 4 3"
+        # Only atmospheric_dew_point, sky_temperature, and temperature can be negative:
+        raw = "0 5 50 -10 50 1000 1 100 5 -15 2 -20 180 4 3"
         m = PATTERN_OBSERVING_CONDITIONS_ALL_RESPONSE.match(raw)
-        self.assertIsNone(m, msg="Pattern should not match negative numeric values")
+        self.assertIsNotNone(
+            m, msg="Pattern did not match response containing negative values"
+        )
+
+        raw = "0 0 100 -1.31 17.89 1017.71 0 0 NA 19.89 NA 24.69 NA NA 0.183333"
+        m = PATTERN_OBSERVING_CONDITIONS_ALL_RESPONSE.match(raw)
+        self.assertIsNotNone(
+            m, msg="Pattern did not match response containing negative values"
+        )
 
     def test_excess_tokens(self):
         # Too many fields (16 instead of 15) should fail to match:
